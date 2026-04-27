@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Body.css";
 
 function Body() {
+    console.log("Update!");
     const [count, setCount] = useState(0);
     const onIncrease = () => {
         setCount(count + 1);

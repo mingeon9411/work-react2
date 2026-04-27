@@ -1,25 +1,23 @@
 import './App.css'
-import Header from './component/Header'
-import Body from './component/Body'
-import Footer from './component/Footer'
 
-function ChildComp() {
-  return <div>Child component</div>;
+function Counter() {
+  let count = 0;
+  return (
+    <div>
+      <p>Counter : {count}</p>
+      <button onClick={()=> {
+        count++;
+        console.log(count);
+      }}
+      >Increment</button>
+    </div>
+  );
 }
 
 function App() {
-  // const bodyProps = {
-  //   name : "이정환",
-  //   location: "부천시",
-  //   favorList: ["파스타","빵","떡볶이"],
-  // }
   return (
     <div>
-      <Header />
-      <Body>
-        <ChildComp/>
-      </Body>
-      <Footer />
+      <Counter />
     </div>
   )
 }
