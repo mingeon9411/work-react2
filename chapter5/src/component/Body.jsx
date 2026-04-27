@@ -1,59 +1,29 @@
 import { useState } from "react";
 import "./Body.css";
 
+function Viewer({number}) {
+    return <div>{number %2 === 0 ? <h3>짝수</h3>: <h3>홀수</h3>}</div>
+}
+
 function Body() {
-    // const [name, setName] = useState("");
-    // const [gender, setGender] = useState("");
-    // const [birth, setBirth] = useState("");
-    // const [bio, setBio] = useState("");
-
-    const [state, setState] = useState({
-        name: "",
-        gender: "",
-        birth: "",
-        bio: "",
-    });
-
-    const handleOnChange = (e) => {
-        console.log("현재 수정 대상: ", e.target.name);
-        console.log("수정값: ", e.target.value);
-        setState({
-            ...state,
-            [e.target.name]: e.target.value,
-        });
+    const [number, setNumber] = useState(0);
+    
+    const onIncrease = () => {
+        setNumber(number + 1);
+    };
+    const onDecrease = () => {
+        setNumber(number - 1);
     };
 
-    // const onChangeName = (e) => {
-    //     setName(e.target.value);
-    // };
-    // const onChangeGender = (e) => {
-    //     setGender(e.target.value);
-    // };
-    // const onChangeBirth = (e) => {
-    //     setBirth(e.target.value);
-    // };
-    // const onChangeBio = (e) => {
-    //     setBio(e.target.value);
-    // };
     return (
-       <div className="body">
-        <div>
-            <input name="name" value={state.name} onChange={handleOnChange} placeholder="이름"/>
+        <div className="body">
+            <h2>{number}</h2>
+            <Viewer number={number}/>
+            <div>
+                <button onClick={onDecrease}>-</button>
+                <button onClick={onIncrease}>+</button>
+            </div>
         </div>
-        <div>
-            <select name="gender" value={state.gender} onChange={handleOnChange}>
-                <option key={""}></option>
-                <option key={"남성"}>남성</option>
-                <option key={"여성"}>여성</option>
-            </select>
-        </div>
-        <div>
-            <input name="birth" type="date" value={state.birth} onChange={handleOnChange}/>
-        </div>
-        <div>
-            <textarea name="bio" value={state.bio} onChange={handleOnChange}/>
-        </div>
-       </div>
     );
 }
 export default Body;
