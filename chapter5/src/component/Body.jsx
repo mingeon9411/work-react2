@@ -1,10 +1,12 @@
 import "./Body.css";
 
 function Body({children}) {
-    console.log(children);
+    function handleOnClick() {
+        alert("버튼을 클릭하셨군요!");
+    }
     return (
        <div className="body">
-        {children}
+        <button onClick={handleOnClick}>클릭하세요</button>
        </div>
     );
 }
