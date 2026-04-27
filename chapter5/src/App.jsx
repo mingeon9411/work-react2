@@ -1,23 +1,14 @@
 import './App.css'
-
-function Counter() {
-  let count = 0;
-  return (
-    <div>
-      <p>Counter : {count}</p>
-      <button onClick={()=> {
-        count++;
-        console.log(count);
-      }}
-      >Increment</button>
-    </div>
-  );
-}
+import Header from './component/Header'
+import Body from './component/Body'
+import Footer from './component/Footer'
 
 function App() {
   return (
     <div>
-      <Counter />
+      <Header/>
+      <Body />
+      <Footer/>
     </div>
   )
 }
