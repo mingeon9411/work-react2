@@ -1,29 +1,22 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./Body.css";
 
-function Viewer() {
-    console.log("viewer component update!");
-    return <div>Viewer</div>
-}
-
 function Body() {
-    const [number, setNumber] = useState(0);
+    const [text, setText] = useState("");
+    const textRef = useRef();
     
-    const onIncrease = () => {
-        setNumber(number + 1);
+    const handleOnChange = (e) => {
+        setText(e.target.value);
     };
-    const onDecrease = () => {
-        setNumber(number - 1);
+    const handleOnClick = () => {
+        alert(text);
+        textRef.current.value = "";
     };
 
     return (
         <div className="body">
-            <h2>{number}</h2>
-            <Viewer/>
-            <div>
-                <button onClick={onDecrease}>-</button>
-                <button onClick={onIncrease}>+</button>
-            </div>
+            <input ref={textRef} value={text} onChange={handleOnChange}/>
+            <button onClick={handleOnClick}>작성완료</button>
         </div>
     );
 }
