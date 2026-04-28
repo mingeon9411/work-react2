@@ -16,6 +16,12 @@ function App() {
   };
 
   useEffect(() => {
+    setInterval(() => {
+      console.log("깜빡");
+    }, 1000);
+  });
+
+  useEffect(() => {
     if (!didMountRef.current) {
       didMountRef.current = true;
       return;
@@ -23,6 +29,10 @@ function App() {
       console.log("컴포넌트 업데이트!");
     }
   });
+
+  useEffect(() => {
+    console.log("컴포넌트 마운트");
+  }, []);
 
   return (
     <div className="App">
