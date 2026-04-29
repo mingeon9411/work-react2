@@ -14,7 +14,7 @@
 
 .TodoEditor input:focus {
     outline: none;
-    border: 1px solid #1f93ff;
+    border: 2px solid #1f93ff;
 }
 
 .TodoEditor button {
