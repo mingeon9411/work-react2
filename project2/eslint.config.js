@@ -10,6 +10,7 @@ export default defineConfig([
     files: ['**/*.{js,jsx}'],
     extends: [
       js.configs.recommended,
+<<<<<<< HEAD
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
@@ -21,6 +22,24 @@ export default defineConfig([
       "react/prop-types": "off",
       "react-refresh/only-export-components": "off",
     }
+=======
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-unused-vars': "off",
+      "react/prop-types": "off",
+      "react-refresh/only-export-components": "off",
+>>>>>>> 5fd40d3ee9dbc4d350e0a23910d7e35f9c35bd14
     },
   },
 ])
