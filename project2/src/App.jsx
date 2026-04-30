@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
@@ -35,18 +35,37 @@ const mockTodo = [
     content: "독서하기",
     date: new Date().getTime(),
   },
+  {
+    id: 5,
+    isDone: false,
+    content: "알고리즘 풀기",
+    date: new Date().getTime(),
+  },
+  {
+    id: 6,
+    isDone: false,
+    content: "CSS 복습하기",
+    date: new Date().getTime(),
+  },
+  {
+    id: 7,
+    isDone: false,
+    content: "JS 복습하기",
+    date: new Date().getTime(),
+  },
 ];
 
 function App() {
   const [todo, setTodo] = useState(mockTodo);
+  const idRef = useRef(8);
 
-  const idRef = useRef(5);
+  const petals = Array.from({ length: 12 });
 
   const onCreate = (content) => {
     const newItem = {
       id: idRef.current,
-      content,
       isDone: false,
+      content,
       date: new Date().getTime(),
     };
 
@@ -56,32 +75,29 @@ function App() {
 
   const onUpdate = (targetId) => {
     setTodo(
-      todo.map((it) => {
-        if (it.id === targetId) {
-          return {
-            ...it,
-            isDone: !it.isDone,
-          };
-        }
-
-        return it;
-      })
+      todo.map((item) =>
+        item.id === targetId ? { ...item, isDone: !item.isDone } : item
+      )
     );
   };
 
   const onDelete = (targetId) => {
-    setTodo(todo.filter((it) => it.id !== targetId));
+    setTodo(todo.filter((item) => item.id !== targetId));
   };
 
   return (
     <div className="App">
-      <Header />
-      <TodoEditor onCreate={onCreate} />
-      <TodoList
-        todo={todo}
-        onUpdate={onUpdate}
-        onDelete={onDelete}
-      />
+      <div className="sakura-container">
+        {petals.map((_, index) => (
+          <span key={index} className={`petal petal${index + 1}`}></span>
+        ))}
+      </div>
+
+      <div className="app-content">
+        <Header />
+        <TodoEditor onCreate={onCreate} />
+        <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
+      </div>
     </div>
   );
 }

@@ -1,24 +1,103 @@
+.TodoEditor {
+  width: 100%;
+}
+
+.TodoEditor h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #2f2f2f;
+}
+
 .TodoEditor .editor_wrapper {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 12px;
 }
 
-.TodoEditor input {
-  width: 200px;
-  height: 48px;
-  padding: 0 16px;
-  border: 1px solid #ddd;
-  border-radius: 16px;
+/* 입력창 바깥 감싸는 영역 */
+.input_wrapper {
+  flex: 1;
+  position: relative;
+}
+
+/* 입력창 왼쪽 벚꽃 아이콘 */
+.input_wrapper::before {
+  content: "🌸";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+/* 실제 입력창 */
+.input_wrapper input {
+  width: 100%;
+  height: 56px;
+
+  padding: 0 18px 0 46px;
   box-sizing: border-box;
+
+  border: 1.5px solid #f7bed6;
+  border-radius: 22px;
+
+  background: linear-gradient(180deg, #fffdfd 0%, #fff5f8 100%);
+
+  box-shadow:
+    0 4px 12px rgba(244, 182, 204, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  font-size: 16px;
+  color: #5a4b55;
+
+  outline: none;
+  transition: all 0.25s ease;
 }
 
+.input_wrapper input::placeholder {
+  color: #c6a8b5;
+}
+
+.input_wrapper input:focus {
+  border-color: #e9a9c3;
+
+  background: linear-gradient(180deg, #fffefe 0%, #fff8fb 100%);
+
+  box-shadow:
+    0 0 0 4px rgba(244, 182, 204, 0.18),
+    0 6px 18px rgba(244, 182, 204, 0.22);
+
+  transform: translateY(-1px);
+}
+
+/* 추가 버튼 */
 .TodoEditor button {
-  width: 80px;
-  height: 48px;
+  min-width: 90px;
+  height: 56px;
+
   border: none;
-  border-radius: 8px;
-  background-color: #2f8cff;
+  border-radius: 20px;
+
+  background: linear-gradient(180deg, #6ea8ff 0%, #3c86f6 100%);
   color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  box-shadow: 0 6px 14px rgba(60, 134, 246, 0.22);
+  transition: all 0.2s ease;
+}
+
+.TodoEditor button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(60, 134, 246, 0.28);
+}
+
+.TodoEditor button:active {
+  transform: scale(0.98);
 }

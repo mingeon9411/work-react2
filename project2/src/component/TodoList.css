@@ -1,4 +1,17 @@
 /* 검색 폼에 스타일 적용 */
+.TodoList {
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+
+  /* 남은 공간을 TodoList가 차지하게 함 */
+  flex: 1;
+
+  /* TodoList 바깥으로 삐져나가지 않게 */
+  min-height: 0;
+}
+
 .TodoList .searchbar {
   margin-bottom: 20px;
   width: 100%;
