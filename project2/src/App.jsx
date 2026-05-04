@@ -1,11 +1,12 @@
-import { createContext, useCallback, useRef, useState } from "react";
+import { createContext, useCallback, useMemo, useRef, useState } from "react";
 import "./App.css";
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
 import TestCompo from "./component/TestCompo";
 
-export const TodoContext = createContext(null);
+export const TodoStateContext = createContext(null);
+export const TodoDispatchContext = createContext(null);
 
 const mockTodo = [
   {
@@ -93,23 +94,29 @@ function App() {
     setTodo((prevTodo) => prevTodo.filter((it) => it.id !== targetId));
   }, []);
 
-  return (
-    <TodoContext.Provider value={{ todo, onCreate, onUpdate, onDelete }}>
-      <div className="App">
-        <div className="sakura-container">
-          {petals.map((_, index) => (
-            <span key={index} className={`petal petal${index + 1}`}></span>
-          ))}
-        </div>
+  const memoizedDispatches = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, [onCreate, onUpdate, onDelete]);
 
-        <div className="app-content">
-          <Header />
-          <TestCompo />
-          <TodoEditor />
-          <TodoList />
+  return (
+    <TodoStateContext.Provider value={todo}>
+      <TodoDispatchContext.Provider value={memoizedDispatches}>
+        <div className="App">
+          <div className="sakura-container">
+            {petals.map((_, index) => (
+              <span key={index} className={`petal petal${index + 1}`}></span>
+            ))}
+          </div>
+
+          <div className="app-content">
+            <Header />
+            <TestCompo />
+            <TodoEditor />
+            <TodoList />
+          </div>
         </div>
-      </div>
-    </TodoContext.Provider>
+      </TodoDispatchContext.Provider>
+    </TodoStateContext.Provider>
   );
 }
 

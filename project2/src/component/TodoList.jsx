@@ -1,13 +1,10 @@
 import { useContext, useMemo, useState } from "react";
-import { TodoContext } from "../App";
+import { TodoStateContext } from "../App";
 import TodoItem from "./TodoItem";
 import "./TodoList.css";
 
 const TodoList = () => {
-  const storeData = useContext(TodoContext);
-
-  const { todo, onUpdate, onDelete } = storeData;
-
+  const todo = useContext(TodoStateContext);
   const [search, setSearch] = useState("");
 
   const onChangeSearch = (e) => {
@@ -35,17 +32,16 @@ const TodoList = () => {
   }, [todo]);
 
   const { totalCount, doneCount, notDoneCount } = analyzeTodo;
-
   const searchResult = getSearchResult();
 
   return (
     <div className="TodoList">
       <h4>Todo List 🌱</h4>
 
-      <div className="analyze_wrapper">
+      <div>
         <div>총 개수: {totalCount}</div>
-        <div>완료된 일: {doneCount}</div>
-        <div>아직 완료하지 못한 일: {notDoneCount}</div>
+        <div>완료된 할 일: {doneCount}</div>
+        <div>아직 완료하지 못한 할 일: {notDoneCount}</div>
       </div>
 
       <input
@@ -57,12 +53,7 @@ const TodoList = () => {
 
       <div className="List_wrapper">
         {searchResult.map((it) => (
-          <TodoItem
-            key={it.id}
-            {...it}
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-          />
+          <TodoItem key={it.id} {...it} />
         ))}
       </div>
     </div>
