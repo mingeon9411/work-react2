@@ -3,6 +3,7 @@ import "./Header.css";
 
 const Header = () => {
   const [time, setTime] = useState(new Date());
+  console.log("Header 업데이트");
 
   useEffect(() => {
     const timer = setInterval(() => {

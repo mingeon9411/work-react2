@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { createContext, useCallback, useRef, useState } from "react";
 import "./App.css";
 import Header from "./component/Header";
 import TodoEditor from "./component/TodoEditor";
 import TodoList from "./component/TodoList";
 import TestCompo from "./component/TestCompo";
+
+export const TodoContext = createContext(null);
 
 const mockTodo = [
   {
@@ -56,13 +58,13 @@ const mockTodo = [
   },
 ];
 
+const petals = Array.from({ length: 12 });
+
 function App() {
   const [todo, setTodo] = useState(mockTodo);
   const idRef = useRef(8);
 
-  const petals = Array.from({ length: 12 });
-
-  const onCreate = (content) => {
+  const onCreate = useCallback((content) => {
     const newItem = {
       id: idRef.current,
       isDone: false,
@@ -70,39 +72,44 @@ function App() {
       date: new Date().getTime(),
     };
 
-    setTodo([newItem, ...todo]);
+    setTodo((prevTodo) => [newItem, ...prevTodo]);
     idRef.current += 1;
-  };
+  }, []);
 
-  const onUpdate = (targetId) => {
-    setTodo(
-      todo.map((item) =>
-        item.id === targetId ? { ...item, isDone: !item.isDone } : item
+  const onUpdate = useCallback((targetId) => {
+    setTodo((prevTodo) =>
+      prevTodo.map((it) =>
+        it.id === targetId
+          ? {
+              ...it,
+              isDone: !it.isDone,
+            }
+          : it
       )
     );
-  };
+  }, []);
 
-  const onDelete = (targetId) => {
-    setTodo(todo.filter((item) => item.id !== targetId));
-  };
+  const onDelete = useCallback((targetId) => {
+    setTodo((prevTodo) => prevTodo.filter((it) => it.id !== targetId));
+  }, []);
 
   return (
-    <div className="App">
-      <div className="sakura-container">
-        {petals.map((_, index) => (
-          <span key={index} className={`petal petal${index + 1}`}></span>
-        ))}
-      </div>
+    <TodoContext.Provider value={{ todo, onCreate, onUpdate, onDelete }}>
+      <div className="App">
+        <div className="sakura-container">
+          {petals.map((_, index) => (
+            <span key={index} className={`petal petal${index + 1}`}></span>
+          ))}
+        </div>
 
-      <div className="app-content">
-        <Header />
-        <TestCompo />
-        <TodoEditor onCreate={onCreate} />
-        <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
+        <div className="app-content">
+          <Header />
+          <TestCompo />
+          <TodoEditor />
+          <TodoList />
+        </div>
       </div>
-
-       
-    </div>
+    </TodoContext.Provider>
   );
 }
 
