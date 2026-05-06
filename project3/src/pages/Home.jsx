@@ -1,10 +1,10 @@
-import Button from "../component/Button";
+import Editor from "../component/Editor";
 
 const Home = () => {
-  return (
-    <div>
-      <Button />
-    </div>
-  );
+    return (
+        <div>
+            <Editor />
+        </div>
+    );
 };
 export default Home;
