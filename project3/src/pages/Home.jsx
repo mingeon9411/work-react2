@@ -1,4 +1,10 @@
+import Button from "../component/Button";
+
 const Home = () => {
-    return <div>Home 페이지입니다</div>;
-}
+  return (
+    <div>
+      <Button />
+    </div>
+  );
+};
 export default Home;
