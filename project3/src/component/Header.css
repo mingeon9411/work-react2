@@ -4,7 +4,7 @@
     
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #e2e2e2:
+    border-bottom: 1px solid #e2e2e2;
 }
 
 .Header > div {
@@ -26,3 +26,4 @@
     width: 25%;
     justify-content: end;
 }
+
