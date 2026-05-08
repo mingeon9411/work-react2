@@ -1,0 +1,31 @@
+.DiaryList .menu_wrapper {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 수직 정렬도 맞춤 */
+    gap: 10px; /* 버튼 사이 간격 통일 */
+}
+
+.DiaryList .left_col select { /* 오타 수정: , → . */
+    margin-right: 0; /* gap으로 대체했으므로 제거 */
+    border: none;
+    border-radius: 5px;
+    background-color: #ececec;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.DiaryList .menu_wrapper .right_col {
+    flex-grow: 1;
+}
+
+.DiaryList .menu_wrapper .right_col button {
+    width: 100%;
+}
