@@ -63,3 +63,20 @@ export const emotionList = [
     img: getEmotionImgById(5),
 },
 ];
+
+export const getMonthRangeByDate = (targetDate) => {
+    const beginTimeStamp = new Date(
+        targetDate.getFullYear(),
+        targetDate.getMonth(),
+        1   // 해당 월 1일 00:00:00
+    ).getTime();
+
+    const endTimeStamp = new Date(
+        targetDate.getFullYear(),
+        targetDate.getMonth() + 1,
+        0,  // 해당 월 마지막 날 (다음달 0일 = 이번달 말일)
+        23, 59, 59
+    ).getTime();
+
+    return { beginTimeStamp, endTimeStamp };
+};
