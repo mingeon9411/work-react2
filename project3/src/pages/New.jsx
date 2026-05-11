@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../component/Button";
 import Header from "../component/Header";
-import Editor from "../component/Edit";
+import Editor from "../component/Editor";
 import { useContext } from "react";
 import { DiaryDispatchContext } from "../App";
 

@@ -12,19 +12,33 @@ export const DiaryDispatchContext = React.createContext();
 function reducer(state, action) {
   switch (action.type) {
     case "INIT":
-      return action.data;
-    case "CREATE":
-      return [action.data, ...state];
-    case "UPDATE":
-      return state.map((it) =>
-        String(it.id) === String(action.data.id) ? { ...action.data } : it,
+      return action.data;                        // ← } 없애기
+
+    case "CREATE": {
+      const newState = [action.data, ...state];
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }                                            // ← case 닫기
+
+    case "UPDATE": {
+      const newState = state.map((it) =>         // ← const 추가
+        String(it.id) === String(action.data.id) ? { ...action.data } : it
       );
-    case "DELETE":
-      return state.filter((it) => String(it.id) !== String(action.targetId));
-    default: {
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }                                            // ← case 닫기
+
+    case "DELETE": {
+      const newState = state.filter(
+        (it) => String(it.id) !== String(action.targetId)
+      );
+      localStorage.setItem("diary", JSON.stringify(newState));
+      return newState;
+    }                                            // ← case 닫기
+
+    default:
       return state;
-    }
-  }
+  }                                              // ← switch 닫기
 }
 
 const mockData = [
