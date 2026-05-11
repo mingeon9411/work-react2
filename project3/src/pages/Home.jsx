@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { DiaryStateContext } from "../App";
 import Button from "../component/Button";
 import Header from "../component/Header";
-import { getMonthRangeByDate } from "../util";
+import { getMonthRangeByDate, setPageTitle } from "../util";
 import DiaryList from "../component/DiaryList";
 
 const Home = () => {
@@ -20,6 +20,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    setPageTitle("Winterload의 감정 일기장");
     if (data.length >= 1) {
       const { beginTimeStamp, endTimeStamp } = getMonthRangeByDate(pivotDate);
       setFilteredData(
