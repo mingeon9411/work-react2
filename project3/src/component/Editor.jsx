@@ -1,30 +1,104 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import "./Editor.css";
+import { emotionList, getFormattedDate } from "../util";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import EmotionItem from "./EmotionItem";
 
 const Editor = ({ initData, onSubmit }) => {
-  const [data, setData] = useState({
-    date: initData ? new Date(initData.date).toISOString().slice(0, 10) : "",
-    content: initData ? initData.content : "",
-    emotionId: initData ? initData.emotionId : 1,
+  const navigate = useNavigate();
+
+  const [state, setState] = useState({
+    date: getFormattedDate(new Date()),
+    emotionId: 3,
+    content: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+  useEffect(() => {
+    if (initData) {
+      setState({
+        ...initData,
+        date: getFormattedDate(new Date(parseInt(initData.date))),
+      });
+    }
+  }, [initData]);
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
+  const handleChangeDate = (e) => {
+    setState({
+      ...state,
+      date: e.target.value,
+    });
+  };
+
+  const handleChangeContent = (e) => {
+    setState({
+      ...state,
+      content: e.target.value,
+    });
+  };
+
+  const handleChangeEmotion = useCallback((emotionId) => {
+    setState((state) => ({
+      ...state,
+      emotionId,
+    }));
+  }, []);
+
   const handleSubmit = () => {
-    onSubmit(data);
+    onSubmit(state);
   };
 
   return (
-    <div>
-      <input type="date" name="date" value={data.date} onChange={handleChange} />
-      <textarea name="content" value={data.content} onChange={handleChange} />
-      <input type="number" name="emotionId" value={data.emotionId} onChange={handleChange} />
-      <Button text={"작성 완료"} onClick={handleSubmit} />
+    <div className="Editor">
+      <div className="editor_section">
+        {/* 날짜 */}
+        <h4>오늘의 날짜</h4>
+        <div className="input_wrapper">
+          <input
+            type="date"
+            value={state.date}
+            onChange={handleChangeDate}
+          />
+        </div>
+      </div>
+      <div className="editor_section">
+        {/* 감정 */}
+        <h4>오늘의 감정</h4>
+        <div className="input_wrapper emotion_list_wrapper">
+          {emotionList.map((it) => (
+            <EmotionItem
+              key={it.id}
+              {...it}
+              onClick={handleChangeEmotion}
+              isSelected={state.emotionId === it.id}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="editor_section">
+        {/* 일기 */}
+        <h4>오늘의 일기</h4>
+        <div className="input_wrapper">
+          <textarea
+            placeholder="오늘은 어땠나요?"
+            value={state.content}
+            onChange={handleChangeContent}
+          />
+        </div>
+      </div>
+      <div className="editor_section bottom_section">
+        <Button text={"취소하기"} onClick={handleGoBack} />
+        <Button
+          text={"작성 완료"}
+          type={"positive"}
+          onClick={handleSubmit}
+        />
+      </div>
     </div>
   );
 };
-
 export default Editor;
